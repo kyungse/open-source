@@ -18,6 +18,7 @@
         </div>
         <div id="chart1"></div>
         <div id="chart2"></div>
+        <div id="chart3"></div>
     </body>
     <script>
         var chart1 = bb.generate({
@@ -35,7 +36,11 @@
                     "증명평점": "bar",
                     "석차": "step"
                 },
-                colors: { "석차": "#ff0000" },
+                colors: {
+                    "학과평균": "aec738",
+                    "증명평점": "ffbb78",
+                    "석차": "#ff0000"
+                },
                 axes: { "석차": "y2" },
                 labels: true,
                 color: function (color, d) {
@@ -64,42 +69,63 @@
         });
         var chart2 = bb.generate({
             bindto: "#chart2",
-            donut: {
-                title: "신청과목수 / 취득학점"
-            },
             data: {
-                type: "donut",
+                type: "bar",
                 labels: true,
+                "x": "x",
                 columns: [
-                    ["1학년-1학기", 8],
-                    ["1학년-2학기", 5],
-                    ["2학년-1학기", 5],
-                    ["2학년-2학기", 5],
-                    ["3학년-1학기", 8],
-                    ["3학년-2학기", 9],
-                ]
+                    ["x", "1학년-1학기", "1학년-2학기", "2학년-1학기", "2학년-2학기", "3학년-1학기", "3학년-2학기"],
+                    ["신청과목수", 8, 5, 5, 5, 8, 9]
+                ],
+                axes: { "취득학점": "y2" },
+                labels: true
+            },
+            axis: {
+                "x": { type: "category"},
+                "y": {
+                    label: {
+                        text: "신청과목수",
+                        position: "outer-middle"
+                    }
+                },
+                "y2": {
+                    show: true,
+                    label: {
+                        text: "취득학점",
+                        position: "outer-middle"
+                    }
+                }
             }
         });
         setTimeout(function () {
 	        chart1.axis.range({max: {y2:-2}, min: {y2:12}});
-        }, 0);
+        }, 0)
         setTimeout(function () {
-            chart2.unload({ids: '1학년-1학기'});
-            chart2.unload({ids: '1학년-2학기'});
-            chart2.unload({ids: '2학년-1학기'});
-            chart2.unload({ids: '2학년-2학기'});
-            chart2.unload({ids: '3학년-1학기'});
-            chart2.unload({ids: '3학년-2학기'});
             chart2.load({
                 columns: [
-                    ["1학년-1학기", 21],
-                    ["1학년-2학기", 16],
-                    ["2학년-1학기", 16],
-                    ["2학년-2학기", 17],
-                    ["3학년-1학기", 20],
-                    ["3학년-2학기", 20],
+                    ["취득학점", 21, 16, 16, 17, 20, 20]
                 ]
             });
-        }, 2000);
+        }, 3000);
+        setTimeout(function () {
+            var chart3 = bb.generate({
+                bindto: "#chart3",
+                donut: {
+                    title: "신청과목수 / 취득학점"
+                },
+                data: {
+                    type: "donut",
+                    labels: true,
+                    columns: [
+                        ["1학년-1학기", 21],
+                        ["1학년-2학기", 16],
+                        ["2학년-1학기", 16],
+                        ["2학년-2학기", 17],
+                        ["3학년-1학기", 20],
+                        ["3학년-2학기", 20],
+                    ]
+                }
+            });
+        }, 6000);
     </script>
 </html>

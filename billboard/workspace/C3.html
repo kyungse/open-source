@@ -8,17 +8,124 @@
         <script src="./js/c3.min.js"></script>
     </head>
     <body>
-        <div id="chart"></div>
+        <div style="text-align:center"><h1>학기별성적조회</h1></div>
+        <div style="text-align:right">
+            <h5>
+                학과 : 소프트웨어전공<br/>
+                학번 : 2012003073<br/>
+                이름 : 박 경세<br/>
+            </h5>
+        </div>
+        <div id="chart1"></div>
+        <div id="chart2"></div>
+        <div id="chart3"></div>
     </body>
     <script>
-    var chart = c3.generate({
-        bindto: '#chart',
-        data: {
-            columns: [
-                ['data1', 30, 200, 100, 400, 150, 250],
-                ['data2', 50, 20, 10, 40, 15, 25]
-            ]
-        }
-    });
+        var chart1 = c3.generate({
+            bindto: "#chart1",
+            data: {
+                "x": "x",
+                columns: [
+                    ["x", "1학년-1학기", "1학년-2학기", "2학년-1학기", "2학년-2학기", "3학년-1학기", "3학년-2학기"],
+                    ["학과평균", 3.5, 3.5, 3.5, 3.5, 3.5, 3.5],
+                    ["증명평점", 3.71, 4.13, 4.50, 4.50, 4.00, 4.21],
+                    ["석차", 9, 3, 2, 1, 2, 2]
+                ],
+                types: {
+                    "학과평균": "bar",
+                    "증명평점": "bar",
+                    "석차": "step"
+                },
+                colors: {
+                    "학과평균": "aec738",
+                    "증명평점": "ffbb78",
+                    "석차": "#ff0000"
+                },
+                axes: { "석차": "y2" },
+                labels: true,
+                color: function (color, d) {
+            	    // d will be 'id' when called for legends
+            	    return (d.id && d.id === 'data3') ?
+            		d3.rgb(color).darker(d.value / 150).toString() :
+            		color;
+                }
+            },
+            axis: {
+                "x": { type: "category"},
+                "y": {
+                    label: {
+                        text: "학점평균",
+                        position: "outer-middle"
+                    }
+                },
+                "y2": {
+                    show: true,
+                    label: {
+                        text: "석차",
+                        position: "outer-middle"
+                    }
+                }
+            }
+        });
+        var chart2 = c3.generate({
+            bindto: "#chart2",
+            data: {
+                type: "bar",
+                labels: true,
+                "x": "x",
+                columns: [
+                    ["x", "1학년-1학기", "1학년-2학기", "2학년-1학기", "2학년-2학기", "3학년-1학기", "3학년-2학기"],
+                    ["신청과목수", 8, 5, 5, 5, 8, 9]
+                ],
+                axes: { "취득학점": "y2" },
+                labels: true
+            },
+            axis: {
+                "x": { type: "category"},
+                "y": {
+                    label: {
+                        text: "신청과목수",
+                        position: "outer-middle"
+                    }
+                },
+                "y2": {
+                    show: true,
+                    label: {
+                        text: "취득학점",
+                        position: "outer-middle"
+                    }
+                }
+            }
+        });
+        setTimeout(function () {
+	        chart1.axis.range({max: {y2:-2}, min: {y2:12}});
+        }, 0)
+        setTimeout(function () {
+            chart2.load({
+                columns: [
+                    ["취득학점", 21, 16, 16, 17, 20, 20]
+                ]
+            });
+        }, 3000);
+        setTimeout(function () {
+            var chart3 = c3.generate({
+                bindto: "#chart3",
+                donut: {
+                    title: "신청과목수 / 취득학점"
+                },
+                data: {
+                    type: "donut",
+                    labels: true,
+                    columns: [
+                        ["1학년-1학기", 21],
+                        ["1학년-2학기", 16],
+                        ["2학년-1학기", 16],
+                        ["2학년-2학기", 17],
+                        ["3학년-1학기", 20],
+                        ["3학년-2학기", 20],
+                    ]
+                }
+            });
+        }, 6000);
     </script>
 </html>
