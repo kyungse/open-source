@@ -1,5 +1,5 @@
 **************************************************************************************************
-		    Software Studio First Homework - Use Billboard.js to practice
+		  Software Studio First Homework - Use Billboard.js to practice
 **************************************************************************************************
 
 1.	Project : Make Grade Chart by Semester.
